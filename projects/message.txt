@@ -1,0 +1,103 @@
+Jak działa?
+Wpisz 1 liczbę - po zakończeniu naciśnij ENTER
+Wpisz 2 liczbę - po zakończeniu naciśnij ENTER
+Program obliczy odejmowanie i wyświetli je na wyświetlaczu.
+
+W opisie operuje cały czas na wartościach w systemie szesnastkowym (HEX)
+
+			;=========================================================
+CLO			;Wyczyszczenie pamięci programu
+MOV CL,C1		;Przypisanie C1 do CL - 2 miejsce od początku na wyświetlaczu
+			;=========================================================
+WPISZ:			;Pętla WPISZ
+CMP CL,CB		;Sprawdzenie czy wpisane zostało więcej niż 10 liczb
+JZ CZERWONE		;Jeżeli tak - skok do pętli CZERWONE
+IN 00			;Wczytanie znaku z klawiatury
+CMP AL,0D		;Sprawdzenie czy naciśnięty klawisz to ENTER
+JZ KROK			;Jeżeli tak - skok do pętli KROK
+MOV [CL],AL		;Wyświetlenie AL na wyświetlaczu
+INC CL			;Zwiększenie CL o 1
+JMP WPISZ		;Skok do pętli WPISZ
+			;=========================================================
+KROK:			;Pętla KROK
+MOV CL,D1		;Przypisanie D1 do CL
+			;=========================================================
+WPISZ2:			;Pętla WPISZ2
+CMP CL,DB		;Sprawdzenie czy wpisane zostało więcej niż 10 liczb
+JZ CZERWONE		;Jeżeli tak - skok do pętli CZERWONE
+IN 00			;Wczytanie znaku z klawiatury
+CMP AL,0D		;Sprawdzenie czy naciśnięty klawisz to ENTER
+JZ KROK2		;Jeżeli tak - skok do pętli KROK
+MOV [CL],AL		;Wyświetlenie AL na wyświetlacz
+SUB CL,10		;Odjęcie 10 od CL
+MOV BL,[CL]		;Wczytanie BL z komórki CL
+CMP AL,40		;Sprawdzenie czy wczytana liczba jest mniejsza od A
+JNS ODEJMIJ1		;Jeżeli nie - skok do pętli ODEJMIJ1
+POWROT1:		;
+CMP BL,40		;Sprawdzenie czy wczytana liczba jest mniejsza od A
+JNS ODEJMIJ2		;Jeżeli nie - skok do pętli ODEJMIJ2
+POWROT2:		;
+SUB BL,AL		;Odjęcie BL od AL
+ADD CL,20		;Dodanie 20 do CL
+MOV [CL],BL		;Wyświetlenie BL na wyświetlaczu
+SUB CL,10		;Odjęcie 10 od CL
+INC CL			;Zwiększenie CL o 1
+JMP WPISZ2		;Skok do pętli WPISZ2
+			;=========================================================
+CZERWONE:		;Pętla CZERWONE
+MOV AL,90		;Przypisanie 90 do AL
+OUT 01			;Wyświetlenie czerwonego światła
+JMP KONIEC		;Skok do pętli KONIEC
+			;=========================================================
+ODEJMIJ1:		;Pętla ODEJMIJ1
+SUB AL,7		;Odjęcie 7 od AL
+JMP POWROT1		;Skok do pętli POWROT1
+			;=========================================================
+ODEJMIJ2:		;Pętla ODEJMIJ2
+SUB BL,7		;Odjęcie 7 od BL
+JMP POWROT2		;Skok do pętli POWROT2
+			;=========================================================
+KROK2:			;Pętla KROK2
+ADD CL,F		;Dodanie F do CL
+WYPISZ:			;Pętla WYPISZ
+MOV AL,[CL]		;Przypisanie danych z komórki CL do AL
+CMP AL,20		;Sprawdzenie czy AL to spacja
+JZ KONIEC		;Jeżeli tak - skok do pętli KONIEC
+CMP AL,0		;Sprawdzenie czy AL jest mniejsze od 0
+JS DALEJ		;Jeżeli tak - skok do pętli DALEJ
+CMP AL,A		;Sprawdzenie czy AL jest mniejsze od A
+JS WYPISZ1		;Jeżeli tak - skok do pętli WYPISZ1
+CMP AL,10		;Sprawdzenie czy AL jest mniejsze od 10
+JS WYPISZ2		;Jeżeli tak - skok do pętli WYPISZ2
+DALEJ:			;Pętla DALEJ
+ADD AL,10		;Dodanie 10 do AL
+MOV [CL],AL		;Wyświetlenie AL na wyświetlaczu w adresie CL
+JMP WPISZ3		;Skok do pętli WYPISZ3
+POWROT3:		;
+JMP WYPISZ		;Skok do pętli WYPISZ
+			;=========================================================
+WYPISZ1:		;Pętla WYPISZ1
+ADD AL,30		;Dodanie 30 do AL
+MOV [CL],AL		;Wyświetlenie AL na wyświetlaczu w adresie CL
+DEC CL			;Zmniejszenie CL o 1
+JMP WYPISZ		;Skok do pętli WYPISZ
+			;=========================================================
+WYPISZ2:		;Pętla WYPISZ2
+ADD AL,37		;Dodanie 37 do AL
+MOV [CL],AL		;Wyświetlenie AL na wyświetlaczu w adresie CL
+DEC CL			;Zmniejszenie CL o 1
+JMP WYPISZ		;Skok do pętli WYPISZ
+			;=========================================================
+WPISZ3:			;Pętla WYPISZ3
+DEC CL			;Zmniejszenie CL o 1
+MOV BL,[CL]		;Przypisanie do BL danych z adresu CL
+CMP BL,20		;Sprawdzenie czy BL to spacja
+JZ CZERWONE		;Jeżeli tak - skok do pętli CZERWONE
+DEC BL			;Zmniejszenie BL o 1
+MOV [CL],BL		;Wyświetlenie BL na wyświetlaczu w adresie CL
+INC CL			;Zwiększenie CL o 1
+JMP POWROT3		;Skok do pętli POWROT3
+			;=========================================================
+KONIEC:			;
+END			;Zakończenie programu
+			;=========================================================

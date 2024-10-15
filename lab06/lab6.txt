@@ -1,0 +1,120 @@
+1 zadanie
+z tabeli Ask odczytujemy wartości char w formacie hex i przypisujemy je do adresów od c0 do c4, aby wyprowadzić słowo hello
+2 zadanie
+przypisujemy wartość al -4 i сl 0
+dodajemy al i сl, po każdym dodaniu zwiększamy al do momentu kiedy al bedzie 3 
+3 zadanie
+przypisujemy al -11 bl 0
+dodajemy al 1, aby otrzymać 10 i dodajemy go do bl
+po czym w każdej iteracji dodajemy al 2 i dodajemy bl aż do momentu, gdy al wynosi 4
+4 zadanie 
+przypisujemy al 2 bl 3
+mnożymy al przez bl
+po czym w każdej iteracji dodajemy bl 1 i mnożymy przez al aż do momentu, gdy bl będzie równe 5
+zadanie 5
+przypisujemy al 4 bl 4
+mnożymy al przez bl
+za pomocą polecenia mul mnożymy al przez bl dwukrotnie i otrzymujemy 64, czyli 4 do potęgi trzeciej
+
+zad1
+mov al, 48
+mov [C0], al
+mov al, 65
+mov [C1], al
+mov al, 6c
+mov [C2], al
+mov al, 6c
+mov [C3], al
+mov al, 6f
+mov [C4], al
+end
+
+zad2
+mov al, fc ; -4
+mov cl, 0 
+
+add cl, al ; cl+al
+inc al ; al+1
+
+add cl, al
+inc al
+
+add cl, al
+inc al
+
+add cl, al
+inc al
+
+add cl, al
+inc al
+
+add cl, al
+inc al
+
+add cl, al
+inc al
+
+add cl, al
+end
+
+zad3
+; Napisac program obliczajacy sume parzystych liczb z zakresu 5 , -10 , -8 , -6, -4 ,-2 ,0 , 2, 4
+
+mov al, F5 ; -11
+mov bl, 0
+
+add al, 1 ; al = -10
+add bl, al
+
+add al, 2 ; al = -8
+add bl, al
+
+add al, 2
+add bl, al
+
+add al, 2
+add bl, al
+
+add al, 2
+add bl, al
+
+add al, 2
+add bl, al
+
+add al, 2
+add bl, al
+
+add al, 2
+add bl, al
+
+end
+
+zad4
+; Napisać program obliczajcy iloczyn liczb z zakresu 2,3,4,5
+mov al, 2
+mov bl, 3
+
+mul al, bl ; al*bl
+inc bl; bl+1
+
+mul al, bl
+inc bl; bl+1
+
+mul al, bl
+inc bl; bl+1
+
+mul al, bl
+inc bl; bl+1
+
+end
+
+zad5
+mov al, 4
+mov bl, 4
+
+; 4*4*4 = 64
+mul al,bl ; 4*4 = 16 rezultat z mnozenia jest w al
+; 
+mul al,bl ; 16*4 = 64
+
+end

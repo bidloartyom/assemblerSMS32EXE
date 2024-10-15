@@ -1,0 +1,82 @@
+zadanie 1
+przypisujemy al 11 wchodzimy w test
+odejmujemy 2 i sprawdzamy al = -1
+jeśli nie to wracamy do testu
+zadanie 2
+przypisujemy al 0
+wchodzimy do testu gdzie dodajemy 3 
+sprawdzamy al = 66 > 63 
+jeśli nie wracamy do testu
+zadanie 3
+przypisujemy al 0 do wchodu w test
+od początku sprawdzamy al = 71
+jeśli nie, to dodaje al 1
+jeśli tak, to program skokuje do end_label 
+zadanie 4
+przypisujemy al 0, bl 1
+wchodzimy w start, gdzie dodajemy do stosu al, dodajemy al bl, dostajemy ze stosu bl 
+sprawdzamy czy rejestr jest pełny?
+jeśli nie, to wracamy do startu
+jeśli tak, to program idzie do end_label
+
+zad1
+mov al, 0B ; al = 11
+
+test:
+
+sub al,2 ; al - 2 = 9
+cmp al,ff ; 9 ?= -1 ff = -1 
+jz end_label
+
+jmp test
+
+end_label:
+end
+
+zad2
+mov al, 0 ; al = 0
+
+test:
+
+add al, 3 ; al + 3 = 3 ( iteracja numer 1 )
+cmp al, 42 ; 66 > 63 
+; 63 + 3 = 66 > 63
+jnz test
+
+end
+
+zad3
+mov al, 0 ; al = 0 
+
+test:
+
+cmp al, 47 ; hex 47 = dec 71 
+jz end_label ; al = 47 to jump do end_label
+
+add al,1 ; al + 1 
+
+jmp test
+
+end_label:
+
+end
+
+zad4
+mov al, 0
+mov bl, 1
+; al = 0,1,1,2,3,5,8,13...
+start:
+
+push al ; wartosc al w stos
+
+add al, bl; al(0)+bl(1) = al(1) 
+ 
+pop bl ; ze stosa dostajemy wartosc al i przypisujemy go do bl
+
+cmp al, 90
+jz end_label
+
+jmp start 
+
+end_label:
+end

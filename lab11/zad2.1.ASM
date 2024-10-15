@@ -1,0 +1,50 @@
+jmp start1
+db 10
+start1:
+
+int 02
+org 10
+
+MOV CL,40
+MOV [0D],CL
+MOV CL,50
+MOV [0C],CL
+START:
+MOV AL,A ; dzielna (recznie ustawiamy}
+MOV BL,2 ; dzielnik (recznie ustawiamy)
+CMP BL,0
+JZ SWIATLA
+INT 0C
+JMP KONIEC
+
+SWIATLA:
+INT 0D
+JMP KONIEC2
+
+ORG 40
+MOV AL,90
+MOV DL,04
+PUSH DL
+POPF
+OUT 01
+IRET
+
+ORG 50
+MOV DL,0
+PETLA:
+SUB AL,BL
+INC DL
+CMP AL,0
+JS SKOK
+JMP PETLA
+SKOK:
+DEC DL
+PUSH DL
+POP AL
+IRET
+
+KONIEC:
+ADD AL,30
+MOV [C0],AL
+KONIEC2:
+END
